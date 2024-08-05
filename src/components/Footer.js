@@ -4,7 +4,7 @@ import apple from "../images/apple.png";
 
 const Footer = () => {
   return (
-    <div className="h-96 bg-slate-100">
+    <div className="h-96 bg-slate-200">
       <div className="h-24 shadow-lg flex">
         <div className="h-full w-6/12 flex flex-col ml-14 items-center justify-center">
           <span className="font-bold text-3xl">
