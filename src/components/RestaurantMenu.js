@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { useParams } from "react-router-dom";
 import { MENU_API } from "../utils/constants";
+import RestaurantCategory from "./RestaurantCategory";
 
 const RestaurantMenu = () => {
   const [resInfo, setResInfo] = useState(null);
@@ -15,7 +16,6 @@ const RestaurantMenu = () => {
   const fetchData = async () => {
     const data = await fetch(MENU_API + resId);
     const json = await data.json();
-    console.log(json);
     setResInfo(json?.data);
   };
 
@@ -23,19 +23,25 @@ const RestaurantMenu = () => {
 
   const { name, costForTwoMessage } = resInfo.cards[2].card.card.info;
 
-  const { itemCards } =
-    resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card;
-  console.log(itemCards);
+  // const { itemCards } =
+  //   resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card;
+  // console.log(resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards);
+
+  const categories =
+    resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter((c) => {
+      return (
+        c?.card?.card?.["@type"] ===
+        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+      );
+    });
+
+  // console.log(categories);
 
   return (
-    <div className="m-2 p-2">
-      <h1 className="font-bold text-xl">{name}</h1>
-      <h3 className="m-2 text-lg">Menu : </h3>
-      <ul className="ml-2">
-        {itemCards===0 ? <li>Menu Not Available</li> : itemCards.map((item) => (
-          <li key={item?.card?.info?.id}>{item?.card?.info?.name}</li>
-        ))}
-      </ul>
+    <div className="my-4">
+      <h1 className="text-center font-bold text-2xl my-4">{name}</h1>
+      {/* categories accordian */}
+      <div>{categories.map((category)=>(<RestaurantCategory data={category.card.card} />))}</div>
     </div>
   );
 };
