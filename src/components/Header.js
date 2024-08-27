@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../images/logo.svg";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [buttonStatus, setButtonStatus] = useState("Login");
+  const cartItems = useSelector((store)=>(store.cart.items));
   return (
     <div className="border-b-2 shadow-lg">
       <div className="mx-8 flex h-20 justify-between">
@@ -50,7 +52,7 @@ const Header = () => {
               }
             >
               <li className="m-6 p-2 font-semibold text-xl hover:text-orange-400">
-                Cart
+                Cart - {cartItems.length}
               </li>
             </NavLink>
 
