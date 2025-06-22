@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
 import { Link } from "react-router-dom";
 import Shimmer from "./Shimmer";
-import foodBanner1 from "../images/foodBanner1.jpg";
 import Footer from "./Footer";
+import Slider from "./Slider";
 
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
@@ -34,19 +34,10 @@ const Body = () => {
   return listOfRestaurants?.length === 0 ? (
     <Shimmer />
   ) : (
-    <div className="mt-1">
-      <div
-        className="h-96 mx-14 my-4 rounded-lg bg-cover bg-[image:var(--image-url)] bg-no-repeat bg-center flex items-center justify-center"
-        style={{ "--image-url": `url(${foodBanner1})` }}
-      >
-        <div className="h-96 w-full flex flex-col justify-center rounded-lg items-center bg-gradient-to-t from-black">
-          <span className="text-white text-6xl drop-shadow-2xl">WELCOME Dear</span>
-          <span className="my-6 text-white text-5xl drop-shadow-2xl">
-            Taste and Enjoy the Flavour
-          </span>
-        </div>
-      </div>
-      <div className="h-14">
+    <div className="mt-20">
+      <Slider />
+
+      {/* <div className="h-14">
       <div className="h-14 mx-14 flex justify-between">
         <div>
           <span className="text-2xl font-bold">
@@ -91,9 +82,9 @@ const Body = () => {
           </button>
         </div>
       </div>
-      </div>
-      <div className="mx-7">
-        <div className="flex justify-center items-center flex-wrap ">
+      </div> */}
+      <div className="mx-4 md:mx-8 lg:mx-16 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-6 lg:gap-x-8 gap-y-3">
           {filteredRestaurants &&
             filteredRestaurants.map((restaurant) => (
               <Link
