@@ -1,26 +1,23 @@
-import { useState } from "react";
 import ItemList from "./ItemList";
 
-const RestaurantCategory = ({data})=>{
-    const [showItems, setShowItems] = useState(false);
-    const handleCLick = ()=>{
-        showItems === true ? setShowItems(false) : setShowItems(true);
-    }
-    return (
-        <div className="w-full flex justify-center">
-            {/* Header */}
-            <div className="w-7/12 m-2 shadow-lg px-4">
-                <div className="w-full h-12 flex justify-between items-center cursor-pointer" onClick={handleCLick}>
-                <span className="font-bold text-base">{data.title} ({data.itemCards.length})</span>
-                <span className="text-2xl">{showItems===true ? "⮝" : "⮟"}</span>
-                </div>
-                <div>
-                {showItems && <ItemList items={data.itemCards} />}
-                </div>
-            </div>
-            {/* Accordian body */}
+const RestaurantCategory = ({ data, isOpen, onToggle }) => {
+  return (
+    <div className="w-full flex justify-center px-2">
+      <div className="w-full lg:w-2/3 m-2 shadow-lg px-4">
+        <div
+          className="w-full h-12 flex justify-between items-center cursor-pointer"
+          onClick={onToggle}
+        >
+          <span className="font-bold text-base">
+            {data.title} ({data.itemCards.length})
+          </span>
+          <span className="text-xl">{isOpen ? "⮝" : "⮟"}</span>
         </div>
-    )
-}
+
+        <div>{isOpen && <ItemList items={data.itemCards} />}</div>
+      </div>
+    </div>
+  );
+};
 
 export default RestaurantCategory;

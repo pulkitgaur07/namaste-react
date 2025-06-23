@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
 import { Link } from "react-router-dom";
-import Shimmer from "./Shimmer";
+import { ShimmerDashboard } from "./Shimmer";
 import Footer from "./Footer";
 import Slider from "./Slider";
 
@@ -32,7 +32,7 @@ const Body = () => {
   };
 
   return listOfRestaurants?.length === 0 ? (
-    <Shimmer />
+    <ShimmerDashboard />
   ) : (
     <div className="mt-20">
       <Slider />
@@ -96,7 +96,7 @@ const Body = () => {
             ))}
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

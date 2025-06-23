@@ -1,8 +1,29 @@
 import React from "react";
-import iceCream from '../images/iceCream.jpg';
+import iceCream from "../images/iceCream.jpg";
 import logo from "../images/logo.svg";
 
-const ShimmerRestaurantCard = () => {
+const ShimmerSlider = () => {
+  return (
+    <div className="my-4 mx-4 md:mx-8 lg:mx-16 rounded-lg h-60 md:h-72 lg:h-96 bg-blue-950 flex justify-center items-center">
+      <div className="">
+        <div className="flex justify-center mb-4">
+          <div className="w-20 lg:w-28 h-20 lg:h-28 animate-spin border-s-2 rounded-full shadow-lg mb:6 lg:mb-10 flex justify-center items-center"></div>
+          <img
+            className="w-16 lg:w-24 absolute translate-y-2 rounded-full"
+            src={logo}
+          />
+        </div>
+        <div className="flex justify-center mx-2">
+          <h1 className="text-white text-xl md:text-3xl">
+            Looking for great food near you ...
+          </h1>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const ShimmerRestaurantCard = () => {
   return (
     <div className="w-full h-full flex flex-col rounded-xl bg-white overflow-hidden animate-pulse">
       {/* Image Section */}
@@ -31,33 +52,60 @@ const ShimmerRestaurantCard = () => {
   );
 };
 
-
-const Shimmer = () => {
+export const ShimmerItemList = () => {
   return (
-    <div className="mt-20 mb-10">
-      <div className="my-4 mx-4 md:mx-8 lg:mx-16 rounded-lg h-60 md:h-72 lg:h-96 bg-blue-950 flex justify-center items-center">
-        <div className="">
-          <div className="flex justify-center mb-4">
-            <div className="w-20 lg:w-28 h-20 lg:h-28 animate-spin border-s-2 rounded-full shadow-lg mb:6 lg:mb-10 flex justify-center items-center">
-            </div>
-            <img className="w-16 lg:w-24 absolute translate-y-2 rounded-full" src={logo}/>
-          </div>
-          <div className="flex justify-center mx-2">
-            <h1 className="text-white text-xl md:text-3xl">
-              Looking for great food near you ...
-            </h1>
-          </div>
+    <>
+      <div className="flex justify-center mt-20">
+        <div className="flex items-center justify-center w-full lg:w-2/3 m-2 px-4">
+          <div className="h-6 w-1/4 animate-pulse bg-gray-300 rounded-md"></div>
         </div>
       </div>
+      <div className="flex justify-center mt-4">
+        <div className="space-y-6 w-full lg:w-2/3 m-2 shadow-lg px-4">
+          {Array.from({ length: 6 }).map((_, index) => (
+            <div
+              key={index}
+              className="flex flex-col-reverse md:flex-row justify-between border-b pb-8 gap-4 md:gap-4 animate-pulse"
+            >
+              {/* Text section */}
+              <div className="flex flex-col space-y-3 w-full">
+                <div className="h-5 bg-gray-300 rounded w-3/4" />
+                <div className="h-5 bg-gray-300 rounded w-1/4" />
+                <div className="h-4 bg-gray-200 rounded w-full" />
+                <div className="h-4 bg-gray-200 rounded w-5/6" />
+                <div className="h-4 bg-gray-200 rounded w-4/6" />
+              </div>
+
+              {/* Image & Add Button section */}
+              <div className="flex justify-center items-center relative rounded-lg w-full md:w-36 h-36">
+                <div className="relative w-full h-full rounded-lg overflow-hidden flex justify-center items-center">
+                  <div className="w-full h-full bg-gray-300 rounded-lg" />
+                </div>
+
+                {/* Fake Add button */}
+                <div className="absolute bottom-1 md:bottom-0 right-1 md:right-auto md:translate-y-1/2 bg-white border border-gray-300 text-green-600 font-bold px-8 py-1 rounded-md uppercase text-sm lg:text-lg shadow-sm">
+                  &nbsp;
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+};
+
+export const ShimmerDashboard = () => {
+  return (
+    <div className="mt-20 mb-10">
+      <ShimmerSlider />
       <div className="mx-4 md:mx-8 lg:mx-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-6 lg:gap-x-8 gap-y-6">
-        {Array.from({ length: 4 }).map((_, i) => (
-          <ShimmerRestaurantCard key={i} />
-        ))}
-      </div>
+          {Array.from({ length: 4 }).map((_, i) => (
+            <ShimmerRestaurantCard key={i} />
+          ))}
+        </div>
       </div>
     </div>
   );
 };
-
-export default Shimmer;

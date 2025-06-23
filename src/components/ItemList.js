@@ -3,34 +3,53 @@ import { IMG_URL } from "../utils/constants";
 import { addItem } from "../utils/cartSlice";
 
 const ItemList = ({ items }) => {
-  // console.log(items);
   const dispatch = useDispatch();
 
-  const handleAddItem = (item)=>{
+  const handleAddItem = (item) => {
     dispatch(addItem(item));
-  }
+  };
+
   return (
-    <div>
+    <div className="space-y-6">
       {items.map((item) => (
         <div
-          className="border-b-2 my-2 h-44 flex justify-between"
           key={item.card.info.id}
+          className="flex flex-col-reverse md:flex-row justify-between border-b pb-8 gap-4 md:gap-4"
         >
-          <div className="w-8/12 h-full">
-            <h1 className="font-semibold">{item.card.info.name}</h1>
-            <h1 className="font-semibold">₹
-              {item.card.info.price
-                ? item.card.info.price / 100
-                : item.card.info.defaultPrice / 100}
-            </h1>
-            <p>{item.card.info.description}</p>
+          {/* Text section */}
+          <div className="">
+            <h2 className="text-base sm:text-lg font-semibold text-gray-900">
+              {item.card.info.name}
+            </h2>
+            <p className="text-base text-gray-800 font-semibold mt-1">
+              ₹
+              {(item.card.info.price
+                ? item.card.info.price
+                : item.card.info.defaultPrice) / 100}
+            </p>
+            <p className="text-sm sm:text-base text-gray-600 mt-2 line-clamp-3">
+              {item.card.info.description}
+            </p>
           </div>
-          <div className="w-3/12 flex justify-center">
-            <div className="w-3/4 h-3/4 rounded-lg bg-[image:var(--image-url)] bg-no-repeat bg-center bg-cover bg-orange-600" style={{ "--image-url": `url(${IMG_URL+item.card.info.imageId})` }}></div>
-            <button onClick={() => handleAddItem(item)}>
-            <div className="p-2 w-20 absolute -translate-x-28 translate-y-6 bg-white rounded-lg text-green-600 text-center font-bold border border-black uppercase">
-              Add
+
+          {/* Image & Add Button section */}
+          <div className="flex justify-center items-center relative bg-orange-400 rounded-lg">
+            <div className="relative w-full md:w-36 h-36 rounded-lg overflow-hidden flex justify-center items-center">
+              <img
+                src={IMG_URL + item.card.info.imageId}
+                alt={item.card.info.name}
+                className="w-full h-full object-cover"
+              />
             </div>
+
+            {/* Gradient Overlay */}
+            <div className="rounded-lg absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black ..."></div>
+
+            <button
+              onClick={() => handleAddItem(item)}
+              className="absolute bottom-1 md:bottom-0 right-1 md:right-auto md:translate-y-1/2 bg-white border border-gray-300 text-green-600 font-bold px-8 py-1 rounded-md uppercase text-sm lg:text-lg shadow-sm hover:bg-gray-50 transition"
+            >
+              Add
             </button>
           </div>
         </div>

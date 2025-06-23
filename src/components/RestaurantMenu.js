@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import Shimmer from "./Shimmer";
+import { ShimmerItemList } from "./Shimmer";
 import { useParams } from "react-router-dom";
 import { MENU_API } from "../utils/constants";
 import RestaurantCategory from "./RestaurantCategory";
 
 const RestaurantMenu = () => {
+  const [openIndex, setOpenIndex] = useState(0);
   const [resInfo, setResInfo] = useState(null);
 
   const { resId } = useParams();
@@ -19,9 +20,9 @@ const RestaurantMenu = () => {
     setResInfo(json?.data);
   };
 
-  if (resInfo === null) return <Shimmer />;
+  if (resInfo === null) return <ShimmerItemList />;
 
-  const { name, costForTwoMessage } = resInfo.cards[2].card.card.info;
+  const { name, costForTwoMessage } = resInfo?.cards[2]?.card?.card?.info;
 
   // const { itemCards } =
   //   resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card;
@@ -38,10 +39,21 @@ const RestaurantMenu = () => {
   // console.log(categories);
 
   return (
-    <div className="my-4">
-      <h1 className="text-center font-bold text-2xl my-4">{name}</h1>
+    <div className="mt-20">
+      <h1 className="text-center text-semibold md:font-bold text-xl md:text-2xl my-4 px-2">
+        {name}
+      </h1>
       {/* categories accordian */}
-      <div>{categories.map((category)=>(<RestaurantCategory data={category.card.card} />))}</div>
+      <div>
+        {categories?.map((category, index) => (
+          <RestaurantCategory
+            key={index}
+            data={category?.card?.card}
+            isOpen={openIndex === index}
+            onToggle={() => setOpenIndex(openIndex === index ? 0 : index)}
+          />
+        ))}
+      </div>
     </div>
   );
 };
