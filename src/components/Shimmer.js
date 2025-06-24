@@ -99,6 +99,7 @@ export const ShimmerDashboard = () => {
   return (
     <div className="mt-20 mb-10">
       <ShimmerSlider />
+      <ShimmerCategory />
       <div className="mx-4 md:mx-8 lg:mx-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-6 lg:gap-x-8 gap-y-6">
           {Array.from({ length: 4 }).map((_, i) => (
@@ -109,3 +110,50 @@ export const ShimmerDashboard = () => {
     </div>
   );
 };
+
+
+import React from "react";
+
+const shimmerRowItems = 10;
+
+const ShimmerCategory = () => {
+  const shimmerArray = new Array(shimmerRowItems).fill(null);
+
+  return (
+    <div className="bg-white px-4 md:px-8 lg:px-16 py-10 animate-pulse">
+      {/* Scroll Buttons */}
+      <div className="flex justify-end gap-2 mb-4">
+        <div className="p-1 rounded-full bg-gray-200 w-8 h-8" />
+        <div className="p-1 rounded-full bg-gray-200 w-8 h-8" />
+      </div>
+
+      {/* Row 1 */}
+      <div className="flex overflow-x-hidden gap-4 md:gap-8 mb-4">
+        {shimmerArray.map((_, i) => (
+          <div
+            key={`shimmer-row1-${i}`}
+            className="flex-shrink-0 flex flex-col items-center gap-2"
+          >
+            <div className="h-20 w-20 md:28 md:28 lg:h-36 lg:w-36 bg-gray-200 rounded-full" />
+            <div className="h-4 w-8 md:w-12 lg:w-20 bg-gray-200 rounded" />
+          </div>
+        ))}
+      </div>
+
+      {/* Row 2 */}
+      <div className="flex overflow-x-hidden gap-4 md:gap-8">
+        {shimmerArray.map((_, i) => (
+          <div
+            key={`shimmer-row2-${i}`}
+            className="flex-shrink-0 flex flex-col items-center gap-2"
+          >
+            <div className="h-20 w-20 md:28 md:28 lg:h-36 lg:w-36 bg-gray-200 rounded-full" />
+            <div className="h-4 w-8 md:w-12 lg:w-20 bg-gray-200 rounded" />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default ShimmerCategory;

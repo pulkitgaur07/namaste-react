@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { ShimmerDashboard } from "./Shimmer";
 import Footer from "./Footer";
 import Slider from "./Slider";
+import Category from "./Category";
 
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
@@ -83,6 +84,7 @@ const Body = () => {
         </div>
       </div>
       </div> */}
+      <Category />
       <div className="mx-4 md:mx-8 lg:mx-16 mb-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-6 lg:gap-x-8 gap-y-3">
           {filteredRestaurants &&
