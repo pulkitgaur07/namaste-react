@@ -36,4 +36,14 @@
   .animate-fadeForm {
     animation: fadeForm 0.5s ease-out;
   }
+
+  scrollbarCustom::-webkit-scrollbar {
+    width: 10px;
+    background-color: #f1f5f9;
+  }
+
+  .scrollbarCustom::-webkit-scrollbar-thumb {
+    background-color: #bfdbfe;
+    border-radius: 9999px;
+  }
 }
