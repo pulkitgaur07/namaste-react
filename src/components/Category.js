@@ -9,7 +9,7 @@ import Chinese from "../images/Chinese.jpg";
 import CholeBhature from "../images/CholeBhature.jpg";
 import Dosa from "../images/Dosa.jpg";
 import GulabJamun from "../images/GulabJamun.jpg";
-import IceCream from "../images/IceCream.jpg";
+import IceCream from "../images/Vanilla.jpg";
 import Kebab from "../images/Kebab.jpg";
 import Momo from "../images/Momo.jpg";
 import Noodles from "../images/Noodles.jpg";
