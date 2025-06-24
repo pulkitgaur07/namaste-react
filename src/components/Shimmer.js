@@ -1,5 +1,4 @@
 import React from "react";
-import iceCream from "../images/iceCream.jpg";
 import logo from "../images/logo.svg";
 
 const ShimmerSlider = () => {
