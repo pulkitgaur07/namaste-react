@@ -2,48 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-  .active {
+.active{
     color: orange;
-  }
+}
 
-  @keyframes fadeIn {
-    0% {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
   }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 
-  @keyframes fadeForm {
-    0% {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
+@keyframes fadeForm {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
   }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-  .animate-fadeIn {
-    animation: fadeIn 0.5s ease-out forwards;
-  }
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out forwards;
+}
 
-  .animate-fadeForm {
-    animation: fadeForm 0.5s ease-out;
-  }
-
-  scrollbarCustom::-webkit-scrollbar {
-    width: 10px;
-    background-color: #f1f5f9;
-  }
-
-  .scrollbarCustom::-webkit-scrollbar-thumb {
-    background-color: #bfdbfe;
-    border-radius: 9999px;
-  }
+.animate-fadeForm {
+  animation: fadeForm 0.5s ease-out;
 }
