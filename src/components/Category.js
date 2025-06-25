@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { IoMdArrowBack, IoMdArrowForward } from "react-icons/io";
 
 // Your image imports
@@ -23,7 +23,7 @@ import Rasmalai from "../images/Rasmalai.jpg";
 import Rolls from "../images/Rolls.jpg";
 import Shawarma from "../images/Shawarma.jpg";
 
-const row1 = [
+const imageData = [
   { name: "Biryani", src: Biryani },
   { name: "Burger", src: Burger },
   { name: "Cake", src: Cake },
@@ -34,9 +34,6 @@ const row1 = [
   { name: "Ice Cream", src: IceCream },
   { name: "Kebab", src: Kebab },
   { name: "Momo", src: Momo },
-];
-
-const row2 = [
   { name: "Noodles", src: Noodles },
   { name: "North Indian", src: NorthIndian },
   { name: "Paratha", src: Paratha },
@@ -50,71 +47,48 @@ const row2 = [
 ];
 
 const Category = () => {
-  const rowRef1 = useRef(null);
-  const rowRef2 = useRef(null);
-  const itemRef = useRef(null); // We'll use this to measure width of one item
+  const containerRef = useRef(null);
 
-  const scrollByImageCount = (count = 2) => {
-    const item = itemRef.current;
-    if (!item) return;
+  const handleScrollRight = () => {
+    containerRef.current.scrollLeft += 200;
+  };
 
-    const itemStyle = getComputedStyle(item);
-    const gap = parseFloat(itemStyle.marginRight || "16"); // Default to 16px gap
-    const itemWidth = item.offsetWidth + gap;
-
-    rowRef1.current.scrollLeft += count * itemWidth;
-    rowRef2.current.scrollLeft += count * itemWidth;
+  const handleScrollLeft = () => {
+    containerRef.current.scrollLeft -= 200;
   };
 
   return (
-    <div className="bg-white px-4 md:px-8 lg:px-16 py-10">
-      {/* Scroll Buttons */}
-      <div className="flex justify-end gap-2 mb-4">
-        <button
-          onClick={() => scrollByImageCount(-2)}
-          className="p-1 rounded-full bg-gray-200"
-        >
-          <IoMdArrowBack size={20} />
-        </button>
-        <button
-          onClick={() => scrollByImageCount(2)}
-          className="p-1 rounded-full bg-gray-200"
-        >
-          <IoMdArrowForward size={20} />
-        </button>
-      </div>
-
-      {/* Row 1 */}
-      <div
-        ref={rowRef1}
-        className="flex overflow-x-hidden scroll-smooth gap-4 mb-4"
-      >
-        {row1.map((item, index) => (
-          <div
-            key={index}
-            ref={index === 0 ? itemRef : null}
-            className="flex-shrink-0"
+    <div className="bg-white mx-4 md:mx-8 lg:mx-16 mt-10 mb-10">
+      {/* Navigation Buttons */}
+      <div className="flex items-center justify-between gap-2">
+        <div className="font-bold text-xl md:text-2xl">What's on your mind?</div>
+        <div className="flex gap-2">
+          <button
+            onClick={handleScrollLeft}
+            className="p-1 rounded-full bg-gray-100"
           >
-            <img
-              src={item.src}
-              alt={item.name}
-              className="h-36 md:h-44 object-cover"
-            />
-          </div>
-        ))}
+            <IoMdArrowBack size={20} />
+          </button>
+          <button
+            onClick={handleScrollRight}
+            className="p-1 rounded-full bg-gray-100"
+          >
+            <IoMdArrowForward size={20} />
+          </button>
+        </div>
       </div>
 
-      {/* Row 2 */}
+      {/* Single Scrollable Row */}
       <div
-        ref={rowRef2}
-        className="flex overflow-x-hidden scroll-smooth gap-4"
+        ref={containerRef}
+        className="flex overflow-x-scroll scrollbar-none scroll-smooth gap-4"
       >
-        {row2.map((item, index) => (
-          <div key={index} className="flex-shrink-0">
+        {imageData.map((item, index) => (
+          <div key={index} className="flex-shrink-0 text-center">
             <img
               src={item.src}
               alt={item.name}
-              className="h-36 md:h-44 object-cover"
+              className="h-36 md:h-44 w-36 object-cover mx-auto"
             />
           </div>
         ))}
