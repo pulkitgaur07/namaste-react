@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../images/logo.svg";
 import { useSelector } from "react-redux";
 import Modal from "../components/Modal";
@@ -9,7 +9,11 @@ import ForgotPassword from "../components/ForgotPassword";
 import VerificationCode from "../components/VerificationCode";
 import CreateNewPassword from "../components/CreateNewPassword";
 import ChangedPassword from "../components/ChangedPassword";
-import Button from "../components/Button";
+import { FaRegUser } from "react-icons/fa6";
+import { BiSolidOffer } from "react-icons/bi";
+import { IoSearch } from "react-icons/io5";
+import { IoHelpBuoyOutline } from "react-icons/io5";
+import { MdOutlineShoppingCart } from "react-icons/md";
 
 const Header = () => {
   const cartItems = useSelector((store) => store.cart.items);
@@ -37,13 +41,21 @@ const Header = () => {
       case "signUp":
         return <SignUp switchForm={switchForm} closeModal={closeModal} />;
       case "forgotPassword":
-        return <ForgotPassword switchForm={switchForm} closeModal={closeModal} />;
+        return (
+          <ForgotPassword switchForm={switchForm} closeModal={closeModal} />
+        );
       case "verificationCode":
-        return <VerificationCode switchForm={switchForm} closeModal={closeModal} />;
+        return (
+          <VerificationCode switchForm={switchForm} closeModal={closeModal} />
+        );
       case "createNewPassword":
-        return <CreateNewPassword switchForm={switchForm} closeModal={closeModal} />;
+        return (
+          <CreateNewPassword switchForm={switchForm} closeModal={closeModal} />
+        );
       case "changedPassword":
-        return <ChangedPassword switchForm={switchForm} closeModal={closeModal} />;
+        return (
+          <ChangedPassword switchForm={switchForm} closeModal={closeModal} />
+        );
       default:
         return null;
     }
@@ -51,75 +63,55 @@ const Header = () => {
 
   return (
     <>
-      <div className="shadow-xl px-4 md:px-8 lg:px-16 py-1 fixed top-0 z-40 bg-white w-full">
-        <div className="flex h-14 items-center justify-between">
+      <div className="shadow-xl px-4 md:px-8 lg:px-20 py-1 fixed top-0 z-40 bg-white w-full">
+        <div className="flex h-16 items-center justify-between">
           <div className="flex items-center h-12 gap-1">
             <div className="rounded-full p-[2px] border-2 border-orange-400">
               <img className="h-12 bg-orange-400 rounded-full" src={logo} />
             </div>
-            <h1 className="font-semibold text-xl md:text-3xl text-orange-400">
+            <h1 className="font-semibold text-xl md:text-2xl text-orange-400">
               Silver Spoons
             </h1>
           </div>
           <div className="items-center hidden lg:flex">
-            <ul className="flex items-center">
-              <NavLink
-                to="/"
-                className={({ isActive, isPending }) =>
-                  isPending ? "pending" : isActive ? "active" : ""
-                }
-              >
-                <li className="mx-6 font-semibold text-lg lg:text-xl hover:text-amber-400">
-                  Home
-                </li>
-              </NavLink>
-              <NavLink
-                to="/about"
-                className={({ isActive, isPending }) =>
-                  isPending ? "pending" : isActive ? "active" : ""
-                }
-              >
-                <li className="mx-6 font-semibold text-lg lg:text-xl hover:text-amber-400">
-                  About Us
-                </li>
-              </NavLink>
-              <NavLink
-                to="/contact"
-                className={({ isActive, isPending }) =>
-                  isPending ? "pending" : isActive ? "active" : ""
-                }
-              >
-                <li className="mx-6 font-semibold text-lg lg:text-xl hover:text-amber-400">
-                  Contact Us
-                </li>
-              </NavLink>
-              <NavLink
-                to="/cart"
-                className={({ isActive, isPending }) =>
-                  isPending ? "pending" : isActive ? "active" : ""
-                }
-              >
-                <li className="mx-6 font-semibold text-lg lg:text-xl hover:text-amber-400">
-                  Cart - {cartItems.length}
-                </li>
-              </NavLink>
-
-              <Button
-                variant="primary"
-                size="sm"
+            <ul className="flex items-center gap-20">
+              <Link to="/search">
+                <div className="flex items-center gap-2 hover:text-orange-500">
+                  <IoSearch size={20} />
+                  <li className="font-semibold lg:text-md">Search</li>
+                </div>
+              </Link>
+              <Link to="/offers">
+                <div className="flex items-center gap-2 hover:text-orange-500">
+                  <BiSolidOffer size={20} />
+                  <li className="font-semibold lg:text-md">Offers</li>
+                </div>
+              </Link>
+              <Link to="/help">
+                <div className="flex items-center gap-2 hover:text-orange-500">
+                  <IoHelpBuoyOutline size={20} />
+                  <li className="font-semibold lg:text-md">Help</li>
+                </div>
+              </Link>
+              <div
                 onClick={() => openModal("signIn")}
+                className="flex items-center hover:text-orange-500 gap-2 cursor-pointer"
               >
-                Sign In
-              </Button>
+                <FaRegUser size={20} />
+                <li className="font-semibold lg:text-md">Sign In</li>
+              </div>
+              <Link to="/cart">
+                <div className="flex items-center hover:text-orange-500 gap-2 cursor-pointer">
+                  <MdOutlineShoppingCart size={20} />
+                  <li className="font-semibold lg:text-md">Cart</li>
+                </div>
+              </Link>
             </ul>
           </div>
         </div>
       </div>
       <Modal isOpen={showModel.isOpen} close={closeModal}>
-        <div
-          key={showModel.form}
-          className="animate-fadeForm"
-        >
+        <div key={showModel.form} className="animate-fadeForm">
           {renderForm()}
         </div>
       </Modal>

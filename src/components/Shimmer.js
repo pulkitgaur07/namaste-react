@@ -123,12 +123,12 @@ const ShimmerCategory = () => {
         <div className="font-bold text-xl md:text-2xl">What's on your mind?</div>
         <div className="flex gap-2">
           <div
-            className="p-1 rounded-full bg-gray-100"
+            className="p-1 rounded-full bg-gray-200"
           >
             <IoMdArrowBack size={20} />
           </div>
           <div
-            className="p-1 rounded-full bg-gray-100"
+            className="p-1 rounded-full bg-gray-200"
           >
             <IoMdArrowForward size={20} />
           </div>

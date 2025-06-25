@@ -35,7 +35,7 @@ const Body = () => {
   return listOfRestaurants?.length === 0 ? (
     <ShimmerDashboard />
   ) : (
-    <div className="mt-20">
+    <div className="mt-24">
       <Slider />
 
       {/* <div className="h-14">

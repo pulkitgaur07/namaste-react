@@ -58,7 +58,7 @@ const Category = () => {
   };
 
   return (
-    <div className="bg-white mx-4 md:mx-8 lg:mx-16 mt-10 mb-10">
+    <div className="bg-white mx-4 md:mx-8 lg:mx-16 my-8">
       {/* Navigation Buttons */}
       <div className="flex items-center justify-between gap-2">
         <div className="font-bold text-xl md:text-2xl">What's on your mind?</div>
