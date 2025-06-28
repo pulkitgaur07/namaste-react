@@ -18,8 +18,11 @@ const Cart = () => {
           className="p-2 m-2 bg-black text-white rounded-lg"
           onClick={handleClearCart}
         ></button>
-        {cartItems.length === 0 && <h1>Cart is empty. Add items to the Cart!</h1>}
-        <ItemList items={cartItems} />
+        {cartItems.length === 0 ? (
+          <h1>Cart is empty. Add items to the Cart!</h1>
+        ) : (
+          <ItemList items={cartItems} />
+        )}
       </div>
     </div>
   );

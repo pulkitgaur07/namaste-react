@@ -28,6 +28,36 @@
   }
 }
 
+@keyframes floatUp {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.float-up {
+  animation: floatUp 0.2s ease-out;
+}
+
+.float-down {
+  animation: floatDown 0.2s ease-out;
+}
+
 .animate-fadeIn {
   animation: fadeIn 0.5s ease-out forwards;
 }

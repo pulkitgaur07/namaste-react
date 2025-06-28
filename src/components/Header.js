@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import logo from "../images/logo.svg";
 import { useSelector } from "react-redux";
 import Modal from "../components/Modal";
@@ -14,13 +15,34 @@ import { BiSolidOffer } from "react-icons/bi";
 import { IoSearch } from "react-icons/io5";
 import { IoHelpBuoyOutline } from "react-icons/io5";
 import { MdOutlineShoppingCart } from "react-icons/md";
+import CartPreview from "../components/CartPreview";
+import ProfilePreview from "./ProfilePreview";
 
 const Header = () => {
   const cartItems = useSelector((store) => store.cart.items);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [showModel, setShowModel] = useState({
     isOpen: false,
     form: "signIn",
   });
+
+  const [profileHover, setProfileHover] = useState(false);
+  const isLoggedIn = true; // Replace this with actual auth state
+
+  const [cartHover, setCartHover] = useState(false);
+
+  const handleCheckout = () => {
+    setCartHover(false);
+    navigate("/cart");
+  };
+
+  const handleLogout = () => {
+    console.log("Logged out");
+    setProfileHover(false);
+  };
 
   const openModal = (form = "signIn") => {
     setShowModel({ isOpen: true, form });
@@ -63,7 +85,7 @@ const Header = () => {
 
   return (
     <>
-      <div className="shadow-xl px-4 md:px-8 lg:px-20 py-1 fixed top-0 z-40 bg-white w-full">
+      <div className="shadow-xl px-4 md:px-8 lg:px-20 fixed top-0 z-40 bg-white w-full">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center h-12 gap-1">
             <div className="rounded-full p-[2px] border-2 border-orange-400">
@@ -73,8 +95,8 @@ const Header = () => {
               Silver Spoons
             </h1>
           </div>
-          <div className="items-center hidden lg:flex">
-            <ul className="flex items-center gap-20">
+          <div className="h-full items-center hidden lg:flex relative">
+            <ul className="flex items-center h-full gap-20">
               <Link to="/search">
                 <div className="flex items-center gap-2 hover:text-orange-500">
                   <IoSearch size={20} />
@@ -93,19 +115,43 @@ const Header = () => {
                   <li className="font-semibold lg:text-md">Help</li>
                 </div>
               </Link>
-              <div
-                onClick={() => openModal("signIn")}
-                className="flex items-center hover:text-orange-500 gap-2 cursor-pointer"
-              >
-                <FaRegUser size={20} />
-                <li className="font-semibold lg:text-md">Sign In</li>
-              </div>
-              <Link to="/cart">
-                <div className="flex items-center hover:text-orange-500 gap-2 cursor-pointer">
+              {location.pathname !== "/cart" && (
+                <div
+                  className="h-full flex items-center hover:text-orange-500 gap-2 cursor-pointer"
+                  onMouseEnter={() => setCartHover(true)}
+                  onMouseLeave={() => setCartHover(false)}
+                >
                   <MdOutlineShoppingCart size={20} />
                   <li className="font-semibold lg:text-md">Cart</li>
+                  {cartItems.length > 0 && (
+                    <div className="absolute top-1 bg-orange-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-md">
+                      {cartItems.length}
+                    </div>
+                  )}
+                  {cartHover && <CartPreview onCheckout={handleCheckout} />}
                 </div>
-              </Link>
+              )}
+              {isLoggedIn ? (
+                <div
+                  className="relative h-full flex items-center cursor-pointer"
+                  onMouseEnter={() => setProfileHover(true)}
+                  onMouseLeave={() => setProfileHover(false)}
+                >
+                  <div className="h-full flex items-center gap-2 hover:text-orange-500">
+                    <FaRegUser size={20} />
+                    <span className="font-semibold lg:text-md">Pulkit</span>
+                  </div>
+                  {profileHover && <ProfilePreview onLogout={handleLogout} />}
+                </div>
+              ) : (
+                <div
+                  onClick={() => openModal("signIn")}
+                  className="flex items-center hover:text-orange-500 gap-2 cursor-pointer"
+                >
+                  <FaRegUser size={20} />
+                  <li className="font-semibold lg:text-md">Sign In</li>
+                </div>
+              )}
             </ul>
           </div>
         </div>

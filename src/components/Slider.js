@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-
+import React, { useEffect, useState } from "react";
 import foodBanner1 from "../images/foodBanner1.jpeg";
 import foodBanner2 from "../images/foodBanner2.jpg";
 import foodBanner3 from "../images/foodBanner3.jpeg";
@@ -43,71 +41,43 @@ const slides = [
 
 const Slider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState("next");
 
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
-    setDirection("prev");
-  };
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      const interval = setInterval(() => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
+      }, 2000);
+      return () => clearInterval(interval);
+    }, 2000);
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % slides.length);
-    setDirection("next");
-  };
+    return () => clearTimeout(timeout);
+  }, []);
 
   return (
     <div className="mx-4 md:mx-8 lg:mx-16 rounded-lg">
       <div className="relative w-full overflow-hidden h-60 md:h-72 lg:h-96 my-4 rounded-lg">
-        <div className="relative w-full h-full">
-          {slides.map((slide, index) => {
-            const isActive = index === currentIndex;
-
-            return (
-              <div
-                key={index}
-                className={`absolute top-0 left-0 w-full h-full transition-transform duration-700 ease-in-out
-                ${isActive ? "z-20" : "z-10 pointer-events-none opacity-0"}
-                ${
-                  isActive
-                    ? "translate-x-0"
-                    : direction === "next"
-                    ? "translate-x-full"
-                    : "-translate-x-full"
-                }`}
-              >
-                <img
-                  src={slide.image}
-                  alt={`Slide ${index}`}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/10 flex flex-col items-center justify-center text-center px-4">
-                  <h2 className="text-white text-2xl md:text-4xl lg:text-6xl font-bold drop-shadow-2xl">
-                    {slide.heading}
-                  </h2>
-                  <p className="text-white text-xl md:text-2xl lg:text-5xl mt-2 md:mt-4 drop-shadow-2xl">
-                    {slide.subheading}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Prev Button */}
-        <button
-          onClick={prevSlide}
-          className="absolute top-1/2 left-3 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full z-30"
-        >
-          <FaChevronLeft size={20} />
-        </button>
-
-        {/* Next Button */}
-        <button
-          onClick={nextSlide}
-          className="absolute top-1/2 right-3 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full z-30"
-        >
-          <FaChevronRight size={20} />
-        </button>
+        {slides.map((slide, index) => (
+          <div
+            key={index}
+            className={`absolute top-0 left-0 w-full h-full transition-opacity duration-1000 ease-in-out ${
+              index === currentIndex ? "opacity-100 z-20" : "opacity-0 z-10"
+            }`}
+          >
+            <img
+              src={slide.image}
+              alt={`Slide ${index}`}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/10 flex flex-col items-center justify-center text-center px-4">
+              <h2 className="text-white text-2xl md:text-4xl lg:text-6xl font-bold drop-shadow-2xl">
+                {slide.heading}
+              </h2>
+              <p className="text-white text-xl md:text-2xl lg:text-5xl mt-2 md:mt-4 drop-shadow-2xl">
+                {slide.subheading}
+              </p>
+            </div>
+          </div>
+        ))}
 
         {/* Indicator Dots */}
         <div className="absolute bottom-4 w-full flex justify-center items-center space-x-2 z-30">

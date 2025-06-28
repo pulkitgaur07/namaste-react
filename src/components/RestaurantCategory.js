@@ -1,4 +1,6 @@
 import ItemList from "./ItemList";
+import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowUp } from "react-icons/io";
 
 const RestaurantCategory = ({ data, isOpen, onToggle }) => {
   return (
@@ -11,7 +13,7 @@ const RestaurantCategory = ({ data, isOpen, onToggle }) => {
           <span className="font-bold text-base">
             {data.title} ({data.itemCards.length})
           </span>
-          <span className="text-xl">{isOpen ? "⮝" : "⮟"}</span>
+          <span className="text-xl font-bold">{isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}</span>
         </div>
 
         <div>{isOpen && <ItemList items={data.itemCards} />}</div>
