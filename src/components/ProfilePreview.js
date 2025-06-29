@@ -27,7 +27,7 @@ const ProfilePreview = ({ onLogout }) => {
 
         {/* Links */}
         <div className="space-y-2 text-sm font-medium">
-          <a href="/profile" className="block hover:underline">View Profile</a>
+          <a href="/user-profile" className="block hover:underline">View Profile</a>
           <a href="/orders" className="block hover:underline">My Orders</a>
           <a href="/settings" className="block hover:underline">Settings</a>
         </div>
