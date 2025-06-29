@@ -9,8 +9,9 @@ import Offers from "./components/Offers";
 import Help from "./components/Help";
 import RestaurantMenu from "./components/RestaurantMenu";
 import Cart from "./components/Cart";
-import Profile from "./components/Profile";
 import Error from "./components/Error";
+import Search from "./pages/Search";
+import Profile from "./pages/Profile";
 
 const appRouter = createBrowserRouter([
   {
@@ -23,6 +24,7 @@ const appRouter = createBrowserRouter([
       { path: "/restaurants/:resId", element: <RestaurantMenu /> },
       { path: "/cart", element: <Cart /> },
       { path: "/profile", element: <Profile /> },
+      { path: "/search", element: <Search /> },
     ],
     errorElement: <Error />,
   },
