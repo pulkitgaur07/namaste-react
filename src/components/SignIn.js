@@ -6,12 +6,12 @@ import { FaApple } from "react-icons/fa";
 import { GoEye, GoEyeClosed } from "react-icons/go";
 import Button from "../components/Button";
 
-const SignIn = ({ switchForm }) => {
+const SignIn = ({ switchForm, onLogin }) => {
   const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting  },
+    formState: { errors, isSubmitting },
   } = useForm();
 
   const handlePassword = () => {
@@ -20,11 +20,10 @@ const SignIn = ({ switchForm }) => {
 
   const onSubmit = async (data) => {
     console.log("Form Submitted:", data);
-    // Call signup API here
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    // Proceed to next step after submission
     console.log("Sign In successfully!");
+    onLogin(); // call the callback to update header
   };
 
   return (
@@ -37,7 +36,9 @@ const SignIn = ({ switchForm }) => {
         <div className="border-2 p-[2px] border-orange-400 rounded-full">
           <img className="h-12 bg-orange-400 rounded-full" src={logo} />
         </div>
-        <h1 className="font-semibold text-2xl text-orange-400">Silver Spoons</h1>
+        <h1 className="font-semibold text-2xl text-orange-400">
+          Silver Spoons
+        </h1>
       </div>
       <div className="text-center font-semibold text-xl -mb-2">
         Sign in to Your Account

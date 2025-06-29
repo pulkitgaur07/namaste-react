@@ -5,7 +5,7 @@ import { MENU_API } from "../utils/constants";
 import RestaurantCategory from "./RestaurantCategory";
 
 const RestaurantMenu = () => {
-  const [openIndex, setOpenIndex] = useState(0);
+  const [openIndexes, setOpenIndexes] = useState([0]);
   const [resInfo, setResInfo] = useState(null);
 
   const { resId } = useParams();
@@ -49,8 +49,15 @@ const RestaurantMenu = () => {
           <RestaurantCategory
             key={index}
             data={category?.card?.card}
-            isOpen={openIndex === index}
-            onToggle={() => setOpenIndex(openIndex === index ? 0 : index)}
+            isOpen={openIndexes.includes(index)}
+            onToggle={() => {
+              setOpenIndexes(
+                (prev) =>
+                  prev.includes(index)
+                    ? prev.filter((i) => i !== index) // close if already open
+                    : [...prev, index] // open new
+              );
+            }}
           />
         ))}
       </div>

@@ -62,7 +62,7 @@ const Category = () => {
       {/* Navigation Buttons */}
       <div className="flex items-center justify-between gap-2">
         <div className="font-bold text-xl md:text-2xl">What's on your mind?</div>
-        <div className="flex gap-2">
+        <div className="gap-2 hidden md:flex">
           <button
             onClick={handleScrollLeft}
             className="p-1 rounded-full bg-gray-100"

@@ -30,7 +30,9 @@ const Header = () => {
   });
 
   const [profileHover, setProfileHover] = useState(false);
-  const isLoggedIn = true; // Replace this with actual auth state
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem("isLoggedIn") === "true"
+  );
 
   const [cartHover, setCartHover] = useState(false);
 
@@ -41,6 +43,8 @@ const Header = () => {
 
   const handleLogout = () => {
     console.log("Logged out");
+    localStorage.setItem("isLoggedIn", "false");
+    setIsLoggedIn(false);
     setProfileHover(false);
   };
 
@@ -59,7 +63,17 @@ const Header = () => {
   const renderForm = () => {
     switch (showModel.form) {
       case "signIn":
-        return <SignIn switchForm={switchForm} closeModal={closeModal} />;
+        return (
+          <SignIn
+            switchForm={switchForm}
+            closeModal={closeModal}
+            onLogin={() => {
+              localStorage.setItem("isLoggedIn", "true");
+              setIsLoggedIn(true);
+              closeModal();
+            }}
+          />
+        );
       case "signUp":
         return <SignUp switchForm={switchForm} closeModal={closeModal} />;
       case "forgotPassword":
@@ -96,7 +110,7 @@ const Header = () => {
             </h1>
           </div>
           <div className="h-full items-center hidden lg:flex relative">
-            <ul className="flex items-center h-full gap-20">
+            <ul className="flex items-center h-full gap-12 xl:gap-20">
               <Link to="/search">
                 <div className="flex items-center gap-2 hover:text-orange-500">
                   <IoSearch size={20} />
